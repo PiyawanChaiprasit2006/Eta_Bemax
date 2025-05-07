@@ -3,13 +3,17 @@ import numpy as np
 import cv2
 
 # path to the prototxt file and the caffemodel
-prototxt = "MobileNetSSD_deploy.prototxt"
-caffe_model = "MobileNetSSD_deploy.caffemodel"
+prototxt = "Final_Engineering_Project\camera_recognition\MobileNetSSD_deploy.prototxt"
+caffe_model = "Final_Engineering_Project\camera_recognition\MobileNetSSD_deploy.caffemodel"
 
 # load the model
 net = cv2.dnn.readNetFromCaffe(prototxt, caffe_model)
 
 # class labels
+# classNames = {
+#     15: 'person'
+# }
+
 classNames = {
     0: 'background', 1: 'aeroplane', 2: 'bicycle', 3: 'bird', 4: 'boat',
     5: 'bottle', 6: 'bus', 7: 'car', 8: 'cat', 9: 'chair',
