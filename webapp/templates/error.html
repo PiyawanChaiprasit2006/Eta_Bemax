@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Robot Controller</title>
+  <style>
+    html, body {
+      height: 100%;
+      font-family: "Inter", Helvetica, sans-serif;
+      background-color: #ffffff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+        position: relative;
+        width: 393px;
+        height: 852px;
+        background-color: #ffffff;
+        overflow: hidden;
+      }
+
+    .header-bar {
+      background-color: rgba(205, 8, 8, 0.28);
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 80px;
+      z-index: 2;
+    }
+
+    .box {
+        height: 30px;
+        width: 30px;
+        position: fixed;
+        top: 20px;
+        left: 20px;
+        cursor: pointer;
+        z-index: 3;
+      }
+  
+      .box .data-port {
+        background-color: #ffffff;
+        border: 1px solid #d9d9d9;
+        border-radius: 15px;
+        height: 30px;
+        width: 30px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+  
+      .circle {
+        position: absolute;
+        width: 100px;
+        height: 100px;
+        background-color: #d9d9d9;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+    </style>
+</head>
+<body>
+  <div class="header-bar"></div>
+
+  <div class="box" onclick="goToHomePage()">
+    <div class="data-port"></div>
+  </div>
+
+  <script>
+    function goToHomePage() {
+      window.location.href = "/welcome";
+    }
+  </script>
+
+</body>
+</html>
