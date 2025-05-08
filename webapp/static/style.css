@@ -1,0 +1,443 @@
+/* login screen */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body.login {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: "Inter", Helvetica, sans-serif;
+    background-color: #ffffff;
+}
+
+.login .login-container {
+    width: 100%;
+    max-width: 360px;
+    padding: 20px;
+    text-align: center;
+}
+
+.login .face {
+    position: relative;
+    width: 240px;
+    height: 70px;
+    margin: 0 auto 40px;
+}
+
+.login .eye {
+    width: 70px;
+    height: 70px;
+    background: black;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.login .eye + .eye {
+    margin-left: 50px;
+}
+
+.login .mouth {
+    position: absolute;
+    top: 30px;
+    left: 70px;
+    width: 100px;
+    height: 10px;
+    background: black;
+}
+
+.login input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: none;
+    border-radius: 8px;
+    background-color: #ededed;
+    font-size: 16px;
+}
+
+.login button {
+    width: 100%;
+    padding: 12px;
+    background-color: #cd0707;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.login button:hover {
+    background-color: #a50505;
+}
+
+/* welcome page */
+.welcome * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+.welcome html, body {
+    height: 100%;
+    font-family: "Inter", Helvetica, sans-serif;
+    background-color: #ffffff;
+}
+
+.welcome .top-bar {
+    background-color: rgba(205, 8, 8, 0.28);
+    height: 80px;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1;
+}
+
+.welcome .container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-top: 80px; /* offset for top bar */
+}
+
+.welcome .option {
+    background-color: #cd0707;
+    color: white;
+    text-align: center;
+    font-size: 28px;
+    font-weight: 700;
+    border-radius: 12px;
+    width: 260px;
+    height: 110px;
+    margin: 15px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    transition: background-color 0.2s ease;
+}
+
+.welcome .option:hover {
+    background-color: #a50505;
+}
+
+/* supplies page */
+.supplies body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow: hidden;
+    font-family: "Inter", Helvetica, sans-serif;
+}
+
+.supplies .top-bar {
+    background-color: rgba(205, 8, 8, 0.28);
+    height: 80px;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1;
+}
+
+.supplies .SUPPLIES {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+    margin-top: 100px;
+    justify-content: flex-start;
+
+}
+
+.supplies .box {
+    height: 30px;
+    width: 30px;
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    cursor: pointer;
+    z-index: 3;
+}
+
+.supplies .box .data-port {
+    background-color: #ffffff;
+    border: 1px solid #d9d9d9;
+    border-radius: 15px;
+    height: 30px;
+    width: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.supplies .box .overlap-group {
+    height: 6px;
+    position: relative;
+    top: 11px;
+}
+
+.supplies .box .line,
+.supplies .box .img,
+.supplies .box .line-2,
+.supplies .box .line-3,
+.supplies .box .line-4 {
+    position: absolute;
+    object-fit: cover;
+}
+
+.supplies .box .line {
+    height: 1px;
+    width: 7px;
+    top: 5px;
+    left: 0;
+}
+
+.supplies .box .img {
+    height: 1px;
+    width: 7px;
+    top: 5px;
+    left: 23px;
+}
+
+.supplies .box .line-2 {
+    height: 1px;
+    width: 9px;
+    top: 0;
+    left: 11px;
+}
+
+.supplies .box .line-3 {
+    height: 5px;
+    width: 5px;
+    top: 0;
+    left: 6px;
+}
+
+.supplies .box .line-4 {
+    height: 5px;
+    width: 5px;
+    top: 0;
+    left: 19px;
+}
+
+.supplies .option {
+    background-color: #cd0707;
+    color: white;
+    text-align: center;
+    font-size: 28px;
+    font-weight: 700;
+    border-radius: 8px;
+    width: 210px;
+    height: 110px;
+    margin: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    transition: background-color 0.2s ease;
+    position: relative;
+}
+
+.supplies .status-button {
+    background-color: #78d684;
+    border-radius: 7.5px;
+    height: 15px;
+    width: 15px;
+    position: absolute;
+    top: 15px;
+    left: 13px;
+    cursor: pointer;
+}
+
+.supplies .option:hover {
+    background-color: #a50505;
+}
+
+/* control page */
+.control html, body {
+    height: 100%;
+    font-family: "Inter", Helvetica, sans-serif;
+    background-color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+}
+
+.control .container {
+    position: relative;
+    width: 393px;
+    height: 852px;
+    background-color: #ffffff;
+    overflow: hidden;
+    }
+
+.control .header-bar {
+    background-color: rgba(205, 8, 8, 0.28);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 80px;
+    z-index: 2;
+}
+
+.control .box {
+    height: 30px;
+    width: 30px;
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    cursor: pointer;
+    z-index: 3;
+}
+
+.control .box .data-port {
+    background-color: #ffffff;
+    border: 1px solid #d9d9d9;
+    border-radius: 15px;
+    height: 30px;
+    width: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.control .circle {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    background-color: #d9d9d9;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.control .circle.center {
+    top: calc(50% - 150px); 
+    left: 50%; 
+    transform: translate(-50%); 
+}
+
+.control .circle.left {
+    top: 50%;
+    left: calc(50% - 150px);
+    transform: translateY(-50%);
+}
+
+.control .circle.right {
+    top: 50%;
+    left: calc(50% + 50px); 
+    transform: translateY(-50%);
+}
+
+.control .circle.bottom {
+    top: calc(50% + 50px);
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+
+.control .arrow {
+    width: 0;
+    height: 0;
+    border-style: solid;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.control .arrow.up {
+    border-width: 0 20px 30px 20px;
+    border-color: transparent transparent red transparent;
+}
+
+.control .arrow.down {
+    border-width: 30px 20px 0 20px;
+    border-color: red transparent transparent transparent;
+}
+
+.control .arrow.left {
+    border-width: 20px 30px 20px 0;
+    border-color: transparent red transparent transparent;
+}
+
+.control .arrow.right {
+    border-width: 20px 0 20px 30px;
+    border-color: transparent transparent transparent red;
+}
+
+/* error page */
+.error html, body {
+    height: 100%;
+    font-family: "Inter", Helvetica, sans-serif;
+    background-color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+}
+
+.error .container {
+    position: relative;
+    width: 393px;
+    height: 852px;
+    background-color: #ffffff;
+    overflow: hidden;
+}
+
+.error .header-bar {
+background-color: rgba(205, 8, 8, 0.28);
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 80px;
+z-index: 2;
+}
+
+.error .box {
+    height: 30px;
+    width: 30px;
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    cursor: pointer;
+    z-index: 3;
+}
+
+.error .box .data-port {
+    background-color: #ffffff;
+    border: 1px solid #d9d9d9;
+    border-radius: 15px;
+    height: 30px;
+    width: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.error .circle {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    background-color: #d9d9d9;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
