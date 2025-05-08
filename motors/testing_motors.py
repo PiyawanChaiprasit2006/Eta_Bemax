@@ -1,37 +1,34 @@
-
 import time
 import RPi.GPIO as GPIO
 
 # Set up GPIO pins
 GPIO.setmode(GPIO.BOARD)
-GPIO.setup(7, GPIO.OUT) # Connected to PWMA
-GPIO.setup(11, GPIO.OUT) # Connected to AIN2
-GPIO.setup(12, GPIO.OUT) # Connected to AIN1
-GPIO.setup(13, GPIO.OUT) # Connected to STBY
+GPIO.setup(12, GPIO.OUT)  # Connected to PWMO
+GPIO.setup(16, GPIO.OUT)  # Connected to GPIO23 (AIN1)
+GPIO.setup(18, GPIO.OUT)  # Connected to GPIO24 (AIN2)
+GPIO.setup(2, GPIO.OUT)   # 5V Power (already constant)
+GPIO.setup(6, GPIO.OUT)   # GND (already constant)
 
 # Drive the motor clockwise
-GPIO.output(12, GPIO.HIGH) # Set AIN1
-GPIO.output(11, GPIO.LOW) # Set AIN2
-GPIO.output(7, GPIO.HIGH) # Set PWMA
-GPIO.output(13, GPIO.HIGH) # Disable STBY
+GPIO.output(16, GPIO.HIGH)  # Set GPIO23 (AIN1)
+GPIO.output(18, GPIO.LOW)   # Set GPIO24 (AIN2)
+GPIO.output(12, GPIO.HIGH)  # Set PWMO
 
 # Wait 5 seconds
 time.sleep(5)
 
 # Drive the motor counterclockwise
-GPIO.output(12, GPIO.LOW) # Set AIN1
-GPIO.output(11, GPIO.HIGH) # Set AIN2
-GPIO.output(7, GPIO.HIGH) # Set PWMA
-GPIO.output(13, GPIO.HIGH) # Disable STBY
+GPIO.output(16, GPIO.LOW)   # Set GPIO23 (AIN1)
+GPIO.output(18, GPIO.HIGH)  # Set GPIO24 (AIN2)
+GPIO.output(12, GPIO.HIGH)  # Set PWMO
 
 # Wait 5 seconds
 time.sleep(5)
 
 # Reset all the GPIO pins by setting them to LOW
+GPIO.output(16, GPIO.LOW)
+GPIO.output(18, GPIO.LOW)
 GPIO.output(12, GPIO.LOW)
-GPIO.output(11, GPIO.LOW)
-GPIO.output(7, GPIO.LOW)
-GPIO.output(13, GPIO.LOW)
 
 # Clean up GPIO settings
 GPIO.cleanup()
