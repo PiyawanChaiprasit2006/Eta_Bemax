@@ -1,74 +1,67 @@
 # import time
 # import RPi.GPIO as GPIO
 
-# # Set up GPIO pins
-# GPIO.setmode(GPIO.BOARD)
-# GPIO.setup(12, GPIO.OUT)  # Connected to PWMO
-# GPIO.setup(16, GPIO.OUT)  # Connected to GPIO23 (AIN1)
-# GPIO.setup(18, GPIO.OUT)  # Connected to GPIO24 (AIN2)
-# GPIO.setup(2, GPIO.OUT)   # 5V Power (already constant)
-# GPIO.setup(6, GPIO.OUT)   # GND (already constant)
+# # Set up GPIO pins with BCM pin numbering
+# GPIO.setmode(GPIO.BCM)  # Use BCM pin numbering
 
-# # Drive the motor clockwise
-# GPIO.output(16, GPIO.HIGH)  # Set GPIO23 (AIN1)
-# GPIO.output(18, GPIO.LOW)   # Set GPIO24 (AIN2)
-# GPIO.output(12, GPIO.HIGH)  # Set PWMO
+# # Set up pins for motor control
+# GPIO.setup(12, GPIO.OUT)  # Connected to ENA (PWMO)
+# GPIO.setup(23, GPIO.OUT)  # Connected to IN1 (GPIO23 -> Pin 16)
+# GPIO.setup(24, GPIO.OUT)  # Connected to IN2 (GPIO24 -> Pin 18)
 
-# # Wait 5 seconds
-# time.sleep(5)
+# try:
+#     print("Setting up PWM for speed control...")
+#     pwm = GPIO.PWM(12, 1000)  # 1 kHz frequency
+#     pwm.start(100)  # Start with 100% duty cycle (full speed)
+    
+#     print("Driving motor aclockwise for 5 seconds...")
+#     GPIO.output(23, GPIO.HIGH)  # Set IN1 (GPIO23 -> Pin 16)
+#     GPIO.output(24, GPIO.LOW)   # Set IN2 (GPIO24 -> Pin 18)
+#     time.sleep(5)
 
-# # Drive the motor counterclockwise
-# GPIO.output(16, GPIO.LOW)   # Set GPIO23 (AIN1)
-# GPIO.output(18, GPIO.HIGH)  # Set GPIO24 (AIN2)
-# GPIO.output(12, GPIO.HIGH)  # Set PWMO
+#     print("Driving motor counterclockwise for 5 seconds...")
+#     GPIO.output(23, GPIO.LOW)   # Set IN1 (GPIO23 -> Pin 16)
+#     GPIO.output(24, GPIO.HIGH)  # Set IN2 (GPIO24 -> Pin 18)
+#     time.sleep(5)
 
-# # Wait 5 seconds
-# time.sleep(5)
+#     print("Stopping motor.")
+#     pwm.ChangeDutyCycle(0)  # Set speed to 0
 
-# # Reset all the GPIO pins by setting them to LOW
-# GPIO.output(16, GPIO.LOW)
-# GPIO.output(18, GPIO.LOW)
-# GPIO.output(12, GPIO.LOW)
+#     print(f"GPIO 24 state: {GPIO.input(24)}")
 
-# # Clean up GPIO settings
-# GPIO.cleanup()
-
+# finally:
+#     print("Stopping PWM and cleaning up GPIO settings.")
+#     pwm.stop()  # Stop the PWM properly
+#     pwm = None  # Explicitly delete the PWM object
+#     GPIO.cleanup()
+#     print("GPIO cleaned up.")
 
 import time
 import RPi.GPIO as GPIO
 
-# Set up GPIO pins
-GPIO.setmode(GPIO.BOARD)
-GPIO.setup(12, GPIO.OUT)  # Connected to PWMO
-GPIO.setup(16, GPIO.OUT)  # Connected to GPIO23 (AIN1)
-GPIO.setup(18, GPIO.OUT)  # Connected to GPIO24 (AIN2)
-GPIO.setup(2, GPIO.OUT)   # 5V Power (already constant)
-GPIO.setup(6, GPIO.OUT)   # GND (already constant)
+# Set up GPIO pins with BCM pin numbering
+GPIO.setmode(GPIO.BCM)
 
-# Set up PWM on Pin 12 (PWMO)
-pwm = GPIO.PWM(12, 1000)  # 1 kHz frequency
-pwm.start(50)  # Start with 50% duty cycle (half speed)
+# Motor control pins
+GPIO.setup(12, GPIO.OUT)  # ENA (PWM pin)
+GPIO.setup(23, GPIO.OUT)  # IN1 (GPIO23 -> Pin 16)
+GPIO.setup(24, GPIO.OUT)  # IN2 (GPIO24 -> Pin 18)
 
-# Drive the motor clockwise
-GPIO.output(16, GPIO.HIGH)  # Set GPIO23 (AIN1)
-GPIO.output(18, GPIO.LOW)   # Set GPIO24 (AIN2)
+try:
+    print("Testing motor direction...")
 
-# Wait 5 seconds
-time.sleep(5)
+    # Test clockwise rotation (IN1 HIGH, IN2 LOW)
+    GPIO.output(23, GPIO.HIGH)  # Set IN1 (GPIO23 -> Pin 16)
+    GPIO.output(24, GPIO.LOW)   # Set IN2 (GPIO24 -> Pin 18)
+    print("Motor should rotate clockwise now...")
+    time.sleep(3)
 
-# Drive the motor counterclockwise
-GPIO.output(16, GPIO.LOW)   # Set GPIO23 (AIN1)
-GPIO.output(18, GPIO.HIGH)  # Set GPIO24 (AIN2)
+    # Test counterclockwise rotation (IN1 LOW, IN2 HIGH)
+    GPIO.output(23, GPIO.LOW)   # Set IN1 (GPIO23 -> Pin 16)
+    GPIO.output(24, GPIO.HIGH)  # Set IN2 (GPIO24 -> Pin 18)
+    print("Motor should rotate counterclockwise now...")
+    time.sleep(3)
 
-# Wait 5 seconds
-time.sleep(5)
-
-# Stop the motor
-pwm.stop()
-
-# Reset all the GPIO pins by setting them to LOW
-GPIO.output(16, GPIO.LOW)
-GPIO.output(18, GPIO.LOW)
-
-# Clean up GPIO settings
-GPIO.cleanup()
+finally:
+    GPIO.cleanup()  # Clean up GPIO settings
+    print("GPIO cleaned up.")
