@@ -8,4 +8,4 @@ Additionally, a web app will be used for the user to manually move the robot wit
 
 For audio recognition, we will be importing the following: pvporcupine, pyaudio, struct, and os
 
-For camera human detectoin, we will be importing the following: 
+For camera human detectoin, we will be importing the following: numpy, cv2, and MobileNetSSD
