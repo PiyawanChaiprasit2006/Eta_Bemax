@@ -1,0 +1,137 @@
+1. Motors and Servo Movement from User Input
+
+MOTORS:
+    Import Raspberry Pi GPIO library.
+    Set up GPIO mode (BCM).
+    Set motor pin numbers.
+    Initialize PWM for speed control.
+
+Define Motor Control Functions
+
+Function: set_speed(speed)
+    Try:
+        Start the PWM at the specified speed.
+    Except:
+        Print an error if speed setting fails.
+
+Function: move_forward()
+    Try:
+        Set both motors to forward.
+        Set speed to 50%.
+        Print "Moving forward".
+    Except:
+        Print an error message.
+    Finally:
+        Log "Command executed".
+
+Function: move_backward()
+    Try:
+        Set both motors to backward.
+        Set speed to 50%.
+        Print "Moving backward".
+    Except:
+        Print an error message.
+    Finally:
+        Log "Command executed".
+
+Function: turn_left()
+    Try:
+        Set left motor to backward.
+        Set right motor to forward.
+        Set speed to 50%.
+        Print "Turning left".
+    Except:
+        Print an error message.
+    Finally:
+        Log "Command executed".
+
+Function: turn_right()
+    Try:
+        Set left motor to forward.
+        Set right motor to backward.
+        Set speed to 50%.
+        Print "Turning right".
+    Except:
+        Print an error message.
+    Finally:
+        Log "Command executed".
+
+Function: stop_motors()
+    Try:
+        Set both motors to stop.
+        Print "Motors stopped".
+    Except:
+        Print an error message.
+    Finally:
+        Log "Command executed".
+
+
+2. Servos Movement from User Input
+
+Function: toggle_servo(servo_id)
+    Try:
+        If servo is closed:
+            Move to max degree.
+            Set status to open.
+            Print "Servo {id} opened".
+    Else:
+        Move to min degree.
+        Set status to closed.
+        Print "Servo {id} closed".
+    Except:
+        Print "Error in servo control".
+    Finally:
+        Log "Servo command executed".
+
+3. Autonomous Movement from Audio and Human Detection
+
+Camera Human Detection:
+Import OpenCV, MobileNet SSD, numpy.
+
+Try:
+    Load pre-trained model.
+    Print "Model loaded successfully".
+Except:
+    Print "Error loading model".
+
+Object Detection Loop:
+While camera is active:
+    Try:
+        Capture frame.
+        Process for object detection.
+        If confidence > threshold:
+        Print "Object detected".
+        Display bounding box.
+    Except:
+        Print "Detection error".
+4. Audio Keyword Detection
+Import libraries: pvporcupine, pyaudio, numpy.
+Set wake word.
+
+Try:
+    Initialize Porcupine with wake word.
+Except:
+    Print "Wake word initialization failed".
+
+Main Audio Loop:
+While audio stream is active:
+    Try:
+        Read audio data.
+        Process using Porcupine.
+        If wake word detected:
+        Trigger robot movement.
+    Except:
+        Print "Keyword detection error".
+    Finally:
+        Stop audio stream if interrupted.
+
+5. Program Termination
+Try:
+    Stop motors and servos.
+    Close audio stream.
+    Release camera.
+    Cleanup GPIO.
+Except:
+    Print "Error during cleanup".
+Finally:
+    Print "Program terminated successfully".
