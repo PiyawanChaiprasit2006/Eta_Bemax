@@ -1,4 +1,7 @@
-import RPi.GPIO as GPIO
+try:
+    import RPi.GPIO as GPIO
+except (ImportError, ModuleNotFoundError):
+    from mocks.RPi import GPIO  # Use mock GPIO if running locally
 import time
 
 # GPIO settings
