@@ -3,7 +3,7 @@ import RPi.GPIO as GPIO
 
 # GPIO setup
 GPIO.setmode(GPIO.BCM)  # Use BCM pin numbering
-GPIO.setup(18, GPIO.OUT)  # ENA (PWM Control)
+GPIO.setup(13, GPIO.OUT)  # ENA (PWM Control)
 GPIO.setup(23, GPIO.OUT)  # IN1 (Motor Direction)
 GPIO.setup(24, GPIO.OUT)  # IN2 (Motor Direction)
 
@@ -15,7 +15,7 @@ try:
     GPIO.output(24, GPIO.LOW)
 
     print("Setting up PWM on ENA (GPIO 18)...")
-    pwm = GPIO.PWM(18, 1000)  # 1 kHz frequency
+    pwm = GPIO.PWM(13, 1000)  # 1 kHz frequency
     pwm.start(0)  # Start with 0% duty cycle (motor stopped)
 
     print("\nDriving motor clockwise at 50% speed...")
