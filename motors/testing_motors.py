@@ -39,10 +39,15 @@
 import RPi.GPIO as GPIO
 import time
 
-# GPIO pin setup
-ENA = 18  # PWM pin (motor 1)
-IN1 = 23  # GPIO23 -> Pin 16
-IN2 = 24  # GPIO24 -> Pin 18
+# GPIO pin setup for Motor A
+ENA = 18  # PWM pin
+IN1 = 23
+IN2 = 24
+
+# GPIO pin setup for Motor B
+ENB = 12  # PWM pin
+IN3 = 17
+IN4 = 27
 
 # Motor B GPIO pin setup (Right Motor)
 ENB = 12  # PWM pin
@@ -50,49 +55,78 @@ IN3 = 17  # GPIO17 -> Pin 11
 IN4 = 27  # GPIO27 -> Pin 13
 
 # GPIO settings
-GPIO.setwarnings(False)  # Suppress warnings
-GPIO.setmode(GPIO.BCM)   # Use BCM numbering
+GPIO.setwarnings(False)
+GPIO.setmode(GPIO.BCM)
 
-# Motor control pins setup
-GPIO.setup(ENA, GPIO.OUT)  # ENA (PWM pin)
-GPIO.setup(IN1, GPIO.OUT)  # IN1 (GPIO23 -> Pin 16)
-GPIO.setup(IN2, GPIO.OUT)  # IN2 (GPIO24 -> Pin 18)
+# Setup Motor A pins
+GPIO.setup(ENA, GPIO.OUT)
+GPIO.setup(IN1, GPIO.OUT)
+GPIO.setup(IN2, GPIO.OUT)
 
-# PWM setup on ENA pin with 1 kHz frequency
-pwm1 = GPIO.PWM(ENA, 1000)
-pwm1.start(0)  # Start PWM with 0% duty cycle (stopped)
+# Setup Motor B pins
+GPIO.setup(ENB, GPIO.OUT)
+GPIO.setup(IN3, GPIO.OUT)
+GPIO.setup(IN4, GPIO.OUT)
+
+# PWM setup
+pwmA = GPIO.PWM(ENA, 1000)  # Motor A at 1 kHz
+pwmB = GPIO.PWM(ENB, 1000)  # Motor B at 1 kHz
+pwmA.start(0)
+pwmB.start(0)
 
 try:
-    print("Testing motor direction...")
-
-    # Clockwise rotation (IN1 HIGH, IN2 LOW)
-    pwm1.ChangeDutyCycle(50)      # Set speed to 50%
-    GPIO.output(IN1, GPIO.HIGH)   # Set IN1 (GPIO23 -> Pin 16)
-    GPIO.output(IN2, GPIO.LOW)    # Set IN2 (GPIO24 -> Pin 18)
-    print("Motor should rotate clockwise now...")
+    # --- Test Motor A ---
+    print("Motor A: clockwise")
+    pwmA.ChangeDutyCycle(50)
+    GPIO.output(IN1, GPIO.HIGH)
+    GPIO.output(IN2, GPIO.LOW)
     time.sleep(3)
 
-    # Stop motor between tests
-    pwm1.ChangeDutyCycle(0)       # Stop PWM
-    GPIO.output(IN1, GPIO.LOW)    # Set IN1 to LOW
-    GPIO.output(IN2, GPIO.LOW)    # Set IN2 to LOW
-    print("Motor stopped after clockwise rotation.")
+    print("Motor A: stopped")
+    pwmA.ChangeDutyCycle(0)
+    GPIO.output(IN1, GPIO.LOW)
+    GPIO.output(IN2, GPIO.LOW)
     time.sleep(1)
 
-    # Counterclockwise rotation (IN1 LOW, IN2 HIGH)
-    pwm1.ChangeDutyCycle(50)      # Set speed to 50%
-    GPIO.output(IN1, GPIO.LOW)    # Set IN1 (GPIO23 -> Pin 16)
-    GPIO.output(IN2, GPIO.HIGH)   # Set IN2 (GPIO24 -> Pin 18)
-    print("Motor should rotate counterclockwise now...")
+    print("Motor A: counterclockwise")
+    pwmA.ChangeDutyCycle(50)
+    GPIO.output(IN1, GPIO.LOW)
+    GPIO.output(IN2, GPIO.HIGH)
     time.sleep(3)
 
-    # Stop motor after counterclockwise test
-    pwm1.ChangeDutyCycle(0)       # Stop PWM
-    GPIO.output(IN1, GPIO.LOW)    # Set IN1 to LOW
-    GPIO.output(IN2, GPIO.LOW)    # Set IN2 to LOW
-    print("Motor stopped after counterclockwise rotation.")
+    print("Motor A: stopped")
+    pwmA.ChangeDutyCycle(0)
+    GPIO.output(IN1, GPIO.LOW)
+    GPIO.output(IN2, GPIO.LOW)
+    time.sleep(1)
+
+    # --- Test Motor B ---
+    print("Motor B: clockwise")
+    pwmB.ChangeDutyCycle(50)
+    GPIO.output(IN3, GPIO.HIGH)
+    GPIO.output(IN4, GPIO.LOW)
+    time.sleep(3)
+
+    print("Motor B: stopped")
+    pwmB.ChangeDutyCycle(0)
+    GPIO.output(IN3, GPIO.LOW)
+    GPIO.output(IN4, GPIO.LOW)
+    time.sleep(1)
+
+    print("Motor B: counterclockwise")
+    pwmB.ChangeDutyCycle(50)
+    GPIO.output(IN3, GPIO.LOW)
+    GPIO.output(IN4, GPIO.HIGH)
+    time.sleep(3)
+
+    print("Motor B: stopped")
+    pwmB.ChangeDutyCycle(0)
+    GPIO.output(IN3, GPIO.LOW)
+    GPIO.output(IN4, GPIO.LOW)
 
 finally:
-    pwm1.stop()
+    pwmA.stop()
+    pwmB.stop()
     GPIO.cleanup()
-    print("GPIO cleaned up.")
+    print("Cleanup complete.")
+
