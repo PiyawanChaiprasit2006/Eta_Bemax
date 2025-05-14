@@ -1,3 +1,5 @@
+'''
+
 from gpiozero import Servo, Button
 from signal import pause
 from time import sleep
@@ -69,3 +71,5 @@ def servo4():
         servo4.min()
         sleep(0.5)
         servo_button4 = "closed"
+        
+'''

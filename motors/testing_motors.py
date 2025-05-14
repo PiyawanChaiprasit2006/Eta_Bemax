@@ -44,6 +44,11 @@ ENA = 18  # PWM pin (motor 1)
 IN1 = 23  # GPIO23 -> Pin 16
 IN2 = 24  # GPIO24 -> Pin 18
 
+# Motor B GPIO pin setup (Right Motor)
+ENB = 12  # PWM pin
+IN3 = 17  # GPIO17 -> Pin 11
+IN4 = 27  # GPIO27 -> Pin 13
+
 # GPIO settings
 GPIO.setwarnings(False)  # Suppress warnings
 GPIO.setmode(GPIO.BCM)   # Use BCM numbering
