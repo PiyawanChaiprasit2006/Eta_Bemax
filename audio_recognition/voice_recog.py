@@ -40,10 +40,6 @@ import pvporcupine
 import pyaudio
 import struct
 import os
-import pvporcupine
-import pyaudio
-import struct
-import os
 
 # Set your Picovoice Access Key here
 ACCESS_KEY = "gaoJG0yVsQvUN1+vpsZGVNb7Fid1gpCgBuEPUb385ZD2Sx9CFi32+g=="  # Replace with your actual access key
