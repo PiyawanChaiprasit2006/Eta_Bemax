@@ -207,4 +207,3 @@ finally:
     pwmB.stop()
     GPIO.cleanup()
     print("Cleanup complete.")
-
