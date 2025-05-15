@@ -45,7 +45,7 @@ import os
 ACCESS_KEY = "gaoJG0yVsQvUN1+vpsZGVNb7Fid1gpCgBuEPUb385ZD2Sx9CFi32+g=="  # Replace with your actual access key
 
 # Set the path to your custom wake word model
-CUSTOM_WAKE_WORD_PATH = os.path.join("Final_Engineering_Project", "audio_recognition", "helpme_window.ppn")
+CUSTOM_WAKE_WORD_PATH = os.path.join("Final_Engineering_Project", "audio_recognition", "Help_me_raspi.ppn")
 
 # Check if the wake word model file exists
 if not os.path.exists(CUSTOM_WAKE_WORD_PATH):
