@@ -134,9 +134,8 @@ pwm_b.start(0)
 MOTOR_SPEED = 70  # Set motor speed (0-100%)
 
 # Path to the prototxt file and the caffemodel (Linux-style paths)
-prototxt = "Final_Engineering_Project/camera_recognition/MobileNetSSD_deploy.prototxt"
-caffe_model = "Final_Engineering_Project/camera_recognition/MobileNetSSD_deploy.caffemodel"
-
+prototxt = "/home/piyawan/Final_Engineering_Project/camera_recognition/MobileNetSSD_deploy.prototxt"
+caffe_model = "/home/piyawan/Final_Engineering_Project/camera_recognition/MobileNetSSD_deploy.caffemodel"
 # Load the model
 net = cv2.dnn.readNetFromCaffe(prototxt, caffe_model)
 
