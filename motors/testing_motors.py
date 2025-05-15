@@ -75,6 +75,7 @@ pwmA.start(0)
 pwmB.start(0)
 
 try:
+    '''
     # --- Test Motor A ---
     print("Motor A: clockwise")
     pwmA.ChangeDutyCycle(50)
@@ -123,6 +124,83 @@ try:
     pwmB.ChangeDutyCycle(0)
     GPIO.output(IN3, GPIO.LOW)
     GPIO.output(IN4, GPIO.LOW)
+    '''
+    
+    # --- Test Both Motors Together ---
+    print("Both Motors: clockwise")
+    pwmA.ChangeDutyCycle(50)
+    pwmB.ChangeDutyCycle(50)
+    # A forward
+    GPIO.output(IN1, GPIO.HIGH)
+    GPIO.output(IN2, GPIO.LOW)
+    # B forward
+    GPIO.output(IN3, GPIO.HIGH)
+    GPIO.output(IN4, GPIO.LOW)
+    time.sleep(3)
+
+    print("Both Motors: stop")
+    pwmA.ChangeDutyCycle(0)
+    pwmB.ChangeDutyCycle(0)
+    GPIO.output(IN1, GPIO.LOW)
+    GPIO.output(IN2, GPIO.LOW)
+    GPIO.output(IN3, GPIO.LOW)
+    GPIO.output(IN4, GPIO.LOW)
+    time.sleep(1)
+
+    print("Both Motors: counterclockwise")
+    pwmA.ChangeDutyCycle(50)
+    pwmB.ChangeDutyCycle(50)
+    # A reverse
+    GPIO.output(IN1, GPIO.LOW)
+    GPIO.output(IN2, GPIO.HIGH)
+    # B reverse
+    GPIO.output(IN3, GPIO.LOW)
+    GPIO.output(IN4, GPIO.HIGH)
+    time.sleep(3)
+
+    print("Both Motors: final stop")
+    pwmA.ChangeDutyCycle(0)
+    pwmB.ChangeDutyCycle(0)
+    GPIO.output(IN1, GPIO.LOW)
+    GPIO.output(IN2, GPIO.LOW)
+    GPIO.output(IN3, GPIO.LOW)
+    GPIO.output(IN4, GPIO.LOW)
+    
+    print("Turning right")
+    pwmA.ChangeDutyCycle(50) 
+    pwmB.ChangeDutyCycle(50)  
+    GPIO.output(IN1, GPIO.HIGH)
+    GPIO.output(IN2, GPIO.LOW)
+    GPIO.output(IN3, GPIO.LOW)
+    GPIO.output(IN4, GPIO.HIGH)
+    time.sleep(2)
+
+    print("Stop after right turn")
+    pwmA.ChangeDutyCycle(0)
+    pwmB.ChangeDutyCycle(0)
+    GPIO.output(IN1, GPIO.LOW)
+    GPIO.output(IN2, GPIO.LOW)
+    GPIO.output(IN3, GPIO.LOW)
+    GPIO.output(IN4, GPIO.LOW)
+    time.sleep(1)
+
+    print("Turning left")
+    pwmB.ChangeDutyCycle(50)  # Right motor forward
+    pwmA.ChangeDutyCycle(50)   # Left motor stopped
+    GPIO.output(IN1, GPIO.LOW)
+    GPIO.output(IN2, GPIO.HIGH)
+    GPIO.output(IN3, GPIO.HIGH)
+    GPIO.output(IN4, GPIO.LOW)
+    time.sleep(2)
+
+    print("Stop after left turn")
+    pwmA.ChangeDutyCycle(0)
+    pwmB.ChangeDutyCycle(0)
+    GPIO.output(IN1, GPIO.LOW)
+    GPIO.output(IN2, GPIO.LOW)
+    GPIO.output(IN3, GPIO.LOW)
+    GPIO.output(IN4, GPIO.LOW)
+    time.sleep(1)
 
 finally:
     pwmA.stop()
