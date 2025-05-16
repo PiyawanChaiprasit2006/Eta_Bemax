@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request
 import motor_control
+from servo_control import move_servo
 
 app = Flask(__name__)
 
@@ -22,6 +23,17 @@ def error():
 @app.route("/supplies")
 def supplies():
     return render_template("supplies.html")
+
+@app.route("/activate_servo", methods=["POST"])
+def activate_servo():
+    data = request.get_json()
+    channel = data.get("channel")
+    try:
+        move_servo(channel, 90, duration=1)
+        move_servo(channel, 0, duration=0.5)
+        return "Servo moved", 200
+    except Exception as e:
+        return str(e), 400
 
 # Motor movement endpoint
 @app.route("/move", methods=["POST"])

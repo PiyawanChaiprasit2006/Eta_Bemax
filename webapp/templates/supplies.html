@@ -20,43 +20,51 @@
     </div>
   </div>
 
-  <div class="SUPPLIES">
-    <div class="option">
-      <div class="status-button" onclick="toggleStatus(this)"></div>
-      Burn
-    </div>
-
-    <div class="option">
-      <div class="status-button" onclick="toggleStatus(this)"></div>
-      Cut
-    </div>
-
-    <div class="option">
-      <div class="status-button" onclick="toggleStatus(this)"></div>
-      Eyes
-    </div>
-
-    <div class="option">
-      <div class="status-button" onclick="toggleStatus(this)"></div>
-      Treats
-    </div>
-
-    <div class="top-bar"></div>
+  <div class="option" onclick="activateServo(0, this, 'Burn')">
+    <div class="status-button"></div>
+    <span class="label">Open Burn</span>
   </div>
 
+  <div class="option" onclick="activateServo(1, this, 'Cut')">
+    <div class="status-button"></div>
+    <span class="label">Open Cut</span>
+  </div>
+
+  <div class="option" onclick="activateServo(2, this, 'Eyes')">
+    <div class="status-button"></div>
+    <span class="label">Open Eyes</span>
+  </div>
+
+  <div class="option" onclick="activateServo(3, this, 'Treats')">
+    <div class="status-button"></div>
+    <span class="label">Open Treats</span>
+  </div>
+
+  <div class="top-bar"></div>
+
   <script>
-    function toggleStatus(el) {
-      const currentColor = window.getComputedStyle(el).backgroundColor;
-      if (currentColor === 'rgb(255, 215, 0)') {
-        el.style.backgroundColor = '#78d684'; // green
-      } else {
-        el.style.backgroundColor = '#FFD700'; // gold
-      }
-    }
-
-
     function goToWelcome() {
       window.location.href = "/welcome";
+    }
+
+    function activateServo(channel, el, labelBase) {
+      fetch('/activate_servo', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ channel: channel })
+      });
+
+      // Toggle the dot color
+      const dot = el.querySelector('.status-button');
+      const currentColor = window.getComputedStyle(dot).backgroundColor;
+      const isActive = currentColor === 'rgb(255, 215, 0)';
+      dot.style.backgroundColor = isActive ? '#78d684' : '#FFD700';
+
+      // Toggle the label text
+      const label = el.querySelector('.label');
+      label.textContent = isActive ? `Close ${labelBase}` : `Open ${labelBase}`;
     }
   </script>
 </body>
