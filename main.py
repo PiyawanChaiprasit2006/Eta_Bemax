@@ -36,11 +36,37 @@ net = cv2.dnn.readNetFromCaffe(prototxt, caffe_model)
 # Constants
 PERSON_CLASS_ID = 15
 
+def spin_in_place(speed=70):
+    pwm_a.ChangeDutyCycle(speed)
+    pwm_b.ChangeDutyCycle(speed)
+    GPIO.output(IN1, GPIO.HIGH); GPIO.output(IN2, GPIO.LOW)  # Motor 1 forward
+    GPIO.output(IN3, GPIO.LOW); GPIO.output(IN4, GPIO.HIGH)  # Motor 2 backward
+
+def stop_motors():
+    pwm_a.ChangeDutyCycle(0)
+    pwm_b.ChangeDutyCycle(0)
+
+def move_towards_person(direction="forward"):
+    pwm_a.ChangeDutyCycle(MOTOR_SPEED)
+    pwm_b.ChangeDutyCycle(MOTOR_SPEED)
+    
+    if direction == "left":
+        GPIO.output(IN1, GPIO.LOW); GPIO.output(IN2, GPIO.HIGH)
+        GPIO.output(IN3, GPIO.HIGH); GPIO.output(IN4, GPIO.LOW)
+    elif direction == "right":
+        GPIO.output(IN1, GPIO.HIGH); GPIO.output(IN2, GPIO.LOW)
+        GPIO.output(IN3, GPIO.LOW); GPIO.output(IN4, GPIO.HIGH)
+    else:  # forward
+        GPIO.output(IN1, GPIO.HIGH); GPIO.output(IN2, GPIO.LOW)
+        GPIO.output(IN3, GPIO.HIGH); GPIO.output(IN4, GPIO.LOW)
+
 # Video capture (V4L2 backend for stability)
 cap = cv2.VideoCapture(0, cv2.CAP_V4L2)
 if not cap.isOpened():
     print("Error: Cannot open camera")
     exit()
+
+spinning = True  # Flag to control spinning
 
 try:
     while True:
@@ -67,45 +93,43 @@ try:
                 cv2.rectangle(frame, (x1, y1), (x2, y2), (0, 255, 0), 2)
                 break
 
-        if bbox_height and bbox_height > 0:
-            distance = (FOCAL_LENGTH * KNOWN_HEIGHT) / bbox_height
-            distance_buffer.append(distance)
-            avg_distance = sum(distance_buffer) / len(distance_buffer)
-        else:
-            avg_distance = None
+        if person_detected:
+            spinning = False  # Stop spinning if person detected
+            
+            if bbox_height and bbox_height > 0:
+                distance = (FOCAL_LENGTH * KNOWN_HEIGHT) / bbox_height
+                distance_buffer.append(distance)
+                avg_distance = sum(distance_buffer) / len(distance_buffer)
+            else:
+                avg_distance = None
 
-        if person_detected and avg_distance is not None:
-            if avg_distance <= STOP_DISTANCE:
-                pwm_a.ChangeDutyCycle(0)
-                pwm_b.ChangeDutyCycle(0)
+            if avg_distance is not None and avg_distance <= STOP_DISTANCE:
+                stop_motors()
                 print("Stopping - Object too close")
             else:
                 center_x = (x1 + x2) // 2
-                pwm_a.ChangeDutyCycle(MOTOR_SPEED)
-                pwm_b.ChangeDutyCycle(MOTOR_SPEED)
                 if center_x < w * 0.4:
-                    GPIO.output(IN1, GPIO.LOW); GPIO.output(IN2, GPIO.HIGH)
-                    GPIO.output(IN3, GPIO.HIGH); GPIO.output(IN4, GPIO.LOW)
                     print("Turning Left")
+                    move_towards_person("left")
                 elif center_x > w * 0.6:
-                    GPIO.output(IN1, GPIO.HIGH); GPIO.output(IN2, GPIO.LOW)
-                    GPIO.output(IN3, GPIO.LOW); GPIO.output(IN4, GPIO.HIGH)
                     print("Turning Right")
+                    move_towards_person("right")
                 else:
-                    GPIO.output(IN1, GPIO.HIGH); GPIO.output(IN2, GPIO.LOW)
-                    GPIO.output(IN3, GPIO.HIGH); GPIO.output(IN4, GPIO.LOW)
                     print("Moving Straight")
+                    move_towards_person("forward")
         else:
-            pwm_a.ChangeDutyCycle(0)
-            pwm_b.ChangeDutyCycle(0)
+            if spinning:
+                print("Spinning in place...")
+                spin_in_place()
+            else:
+                stop_motors()
 
         cv2.imshow("Human Tracking", frame)
         if cv2.waitKey(1) == 27:
             break
 
 finally:
-    pwm_a.stop()
-    pwm_b.stop()
+    stop_motors()
     GPIO.cleanup()
     cap.release()
     cv2.destroyAllWindows()
