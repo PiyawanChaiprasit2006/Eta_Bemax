@@ -1,6 +1,10 @@
 from flask import Flask, render_template, request
 import motor_control
 from servo_control import move_servo
+import atexit
+
+atexit.register(motor_control.cleanup)
+
 
 app = Flask(__name__)
 
@@ -61,10 +65,13 @@ def move():
     except Exception as e:
         return str(e), 500
 
+'''
 # Clean up GPIO on shutdown
 @app.teardown_appcontext
 def cleanup(exception=None):
     motor_control.cleanup()
+'''
+
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000, debug=True)
