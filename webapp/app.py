@@ -34,6 +34,7 @@ def activate_servo():
         return "Servo moved", 200
     except Exception as e:
         return str(e), 400
+    
 
 # Motor movement endpoint
 @app.route("/move", methods=["POST"])
