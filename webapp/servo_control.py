@@ -22,3 +22,4 @@ def move_servo(channel, angle, duration=1):
         pca.channels[channel].duty_cycle = 0  # Turn off pulse to avoid jitter
     else:
         raise ValueError("Channel must be between 0 and 15")
+
