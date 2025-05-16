@@ -25,3 +25,4 @@ def close_servo(channel, start_angle=90, step=5, delay=0.02):
         pca.channels[channel].duty_cycle = angle_to_duty(angle)
         time.sleep(delay)
     pca.channels[channel].duty_cycle = 0
+ 
