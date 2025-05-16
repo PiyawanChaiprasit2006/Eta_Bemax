@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request
 import motor_control
-from servo_control import move_servo
+from servo_control import open_servo, close_servo
 import atexit
 
 atexit.register(motor_control.cleanup)
