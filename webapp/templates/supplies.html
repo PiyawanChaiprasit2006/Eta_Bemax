@@ -54,18 +54,25 @@
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({ channel: channel })
-      });
-
-      // Toggle the dot color
-      const dot = el.querySelector('.status-button');
-      const currentColor = window.getComputedStyle(dot).backgroundColor;
-      const isActive = currentColor === 'rgb(255, 215, 0)';
-      dot.style.backgroundColor = isActive ? '#78d684' : '#FFD700';
-
-      // Toggle the label text
-      const label = el.querySelector('.label');
-      label.textContent = isActive ? `Close ${labelBase}` : `Open ${labelBase}`;
+      })
+      .then(response => response.text())
+      .then(result => {
+        const dot = el.querySelector('.status-button');
+        const label = el.querySelector('.label');
+    
+        if (result === "Opened") {
+          dot.style.backgroundColor = "#FFD700"; // yellow
+          label.textContent = `Close ${labelBase}`;
+        } else if (result === "Closed") {
+          dot.style.backgroundColor = "#78d684"; // green
+          label.textContent = `Open ${labelBase}`;
+        } else {
+          console.error("Unexpected response:", result);
+        }
+      })
+      .catch(error => console.error("Error:", error));
     }
+    
   </script>
 </body>
 </html>

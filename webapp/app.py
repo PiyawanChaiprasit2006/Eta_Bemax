@@ -4,7 +4,7 @@ from servo_control import move_servo
 import atexit
 
 atexit.register(motor_control.cleanup)
-
+servo_states = {} 
 
 app = Flask(__name__)
 
@@ -32,13 +32,21 @@ def supplies():
 def activate_servo():
     data = request.get_json()
     channel = data.get("channel")
+
     try:
-        move_servo(channel, 90, duration=1)
-        move_servo(channel, 0, duration=0.5)
-        return "Servo moved", 200
+        current_state = servo_states.get(channel, False)  # False = closed, True = open
+
+        if current_state:
+            close_servo(channel)
+            servo_states[channel] = False
+            return "Closed", 200
+        else:
+            open_servo(channel)
+            servo_states[channel] = True
+            return "Opened", 200
+
     except Exception as e:
-        return str(e), 400
-    
+        return str(e), 400    
 
 # Motor movement endpoint
 @app.route("/move", methods=["POST"])
