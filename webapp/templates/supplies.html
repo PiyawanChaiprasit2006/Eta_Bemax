@@ -20,25 +20,10 @@
     </div>
   </div>
 
-  <div class="option" onclick="activateServo(0, this, 'Burn')">
-    <div class="status-button"></div>
-    <span class="label">Open Burn</span>
-  </div>
-
-  <div class="option" onclick="activateServo(1, this, 'Cut')">
-    <div class="status-button"></div>
-    <span class="label">Open Cut</span>
-  </div>
-
-  <div class="option" onclick="activateServo(2, this, 'Eyes')">
-    <div class="status-button"></div>
-    <span class="label">Open Eyes</span>
-  </div>
-
-  <div class="option" onclick="activateServo(3, this, 'Treats')">
-    <div class="status-button"></div>
-    <span class="label">Open Treats</span>
-  </div>
+  <div class="option" onclick="toggleAllServos(this)">
+    <div class="status-button" id="main-status"></div>
+    <span class="label" id="main-label">Open All</span>
+  </div>  
 
   <div class="top-bar"></div>
 
@@ -46,34 +31,30 @@
     function goToWelcome() {
       window.location.href = "/welcome";
     }
-
-    function activateServo(channel, el, labelBase) {
-      fetch('/activate_servo', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ channel: channel })
+  
+    function toggleAllServos(el) {
+      fetch('/toggle_all_servos', {
+        method: 'POST'
       })
       .then(response => response.text())
       .then(result => {
-        const dot = el.querySelector('.status-button');
-        const label = el.querySelector('.label');
-    
+        const dot = document.getElementById('main-status');
+        const label = document.getElementById('main-label');
+  
         if (result === "Opened") {
-          dot.style.backgroundColor = "#FFD700"; // yellow
-          label.textContent = `Close ${labelBase}`;
+          dot.style.backgroundColor = "#FFD700";
+          label.textContent = "Close All";
         } else if (result === "Closed") {
-          dot.style.backgroundColor = "#78d684"; // green
-          label.textContent = `Open ${labelBase}`;
+          dot.style.backgroundColor = "#78d684";
+          label.textContent = "Open All";
         } else {
           console.error("Unexpected response:", result);
         }
       })
       .catch(error => console.error("Error:", error));
     }
-    
   </script>
+  
 </body>
 </html>
 

@@ -28,25 +28,22 @@ def error():
 def supplies():
     return render_template("supplies.html")
 
-@app.route("/activate_servo", methods=["POST"])
-def activate_servo():
-    data = request.get_json()
-    channel = data.get("channel")
+# Tracks whether the group is open or closed
+all_open = False
 
+@app.route("/toggle_all_servos", methods=["POST"])
+def toggle_all_servos():
+    global all_open
     try:
-        current_state = servo_states.get(channel, False)  # False = closed, True = open
-
-        if current_state:
-            close_servo(channel)
-            servo_states[channel] = False
-            return "Closed", 200
-        else:
-            open_servo(channel)
-            servo_states[channel] = True
-            return "Opened", 200
-
+        for ch in range(4):  # Adjust if more/less channels
+            if all_open:
+                close_servo(ch)
+            else:
+                open_servo(ch)
+        all_open = not all_open
+        return "Opened" if all_open else "Closed", 200
     except Exception as e:
-        return str(e), 400    
+        return str(e), 400
 
 # Motor movement endpoint
 @app.route("/move", methods=["POST"])
