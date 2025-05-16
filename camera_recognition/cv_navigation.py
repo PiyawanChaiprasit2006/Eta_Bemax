@@ -131,7 +131,7 @@ pwm_a.start(0)
 pwm_b.start(0)
 
 # Motor speed control
-MOTOR_SPEED = 70  # Set motor speed (0-100%)
+MOTOR_SPEED = 50  # Set motor speed (0-100%)
 
 # Path to the prototxt file and the caffemodel (Linux-style paths)
 prototxt = "/home/piyawan/Final_Engineering_Project/camera_recognition/MobileNetSSD_deploy.prototxt"
