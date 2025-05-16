@@ -10,9 +10,29 @@
   <div class="top-bar"></div>
 
   <div class="container">
-    <a href="/supplies" class="option">Care Supplies</a>
+    <button class="option" id="toggle-compartments" onclick="toggleCompartments()">Open Compartments</button>
     <a href="/control" class="option">Control</a>
     <a href="/error" class="option">Errors</a>
   </div>
+
+  <script>
+    function toggleCompartments() {
+      fetch('/toggle_all_servos', {
+        method: 'POST'
+      })
+      .then(response => response.text())
+      .then(result => {
+        const btn = document.getElementById('toggle-compartments');
+        if (result === "Opened") {
+          btn.textContent = "Close Compartments";
+        } else if (result === "Closed") {
+          btn.textContent = "Open Compartments";
+        } else {
+          console.error("Unexpected response:", result);
+        }
+      })
+      .catch(error => console.error("Error:", error));
+    }
+  </script>
 </body>
 </html>

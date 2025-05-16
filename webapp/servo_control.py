@@ -14,15 +14,18 @@ def angle_to_duty(angle):
     pulse_us = min_us + (angle / 180.0) * (max_us - min_us)
     return int(pulse_us * 65535 / (1000000 / pca.frequency))
 
-def open_servo(channel, target_angle=90, step=5, delay=0.02):
+def open_all_servos(channels, target_angle=90, step=5, delay=0.02):
     for angle in range(0, target_angle + 1, step):
-        pca.channels[channel].duty_cycle = angle_to_duty(angle)
+        for ch in channels:
+            pca.channels[ch].duty_cycle = angle_to_duty(angle)
         time.sleep(delay)
-    pca.channels[channel].duty_cycle = 0
+    for ch in channels:
+        pca.channels[ch].duty_cycle = 0
 
-def close_servo(channel, start_angle=90, step=5, delay=0.02):
+def close_all_servos(channels, start_angle=90, step=5, delay=0.02):
     for angle in range(start_angle, -1, -step):
-        pca.channels[channel].duty_cycle = angle_to_duty(angle)
+        for ch in channels:
+            pca.channels[ch].duty_cycle = angle_to_duty(angle)
         time.sleep(delay)
-    pca.channels[channel].duty_cycle = 0
- 
+    for ch in channels:
+        pca.channels[ch].duty_cycle = 0

@@ -1,10 +1,9 @@
 from flask import Flask, render_template, request
 import motor_control
-from servo_control import open_servo, close_servo
+from servo_control import open_all_servos, close_all_servos
 import atexit
 
 atexit.register(motor_control.cleanup)
-servo_states = {} 
 
 app = Flask(__name__)
 
@@ -35,17 +34,16 @@ all_open = False
 def toggle_all_servos():
     global all_open
     try:
-        for ch in range(4):  # Adjust if more/less channels
-            if all_open:
-                close_servo(ch)
-            else:
-                open_servo(ch)
+        channels = [0, 1, 2, 3]  # List of servo channels
+        if all_open:
+            close_all_servos(channels)
+        else:
+            open_all_servos(channels)
         all_open = not all_open
         return "Opened" if all_open else "Closed", 200
     except Exception as e:
         return str(e), 400
 
-# Motor movement endpoint
 @app.route("/move", methods=["POST"])
 def move():
     direction = request.form.get("direction")
@@ -70,14 +68,12 @@ def move():
     except Exception as e:
         return str(e), 500
 
+# Optional manual cleanup
 '''
-# Clean up GPIO on shutdown
 @app.teardown_appcontext
 def cleanup(exception=None):
     motor_control.cleanup()
 '''
 
-
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000, debug=True)
- 
