@@ -20,20 +20,20 @@ The robot addresses three common lab-related injuries:
 Each injury type corresponds to a dedicated compartment in the robot, stocked with the appropriate medical supplies. When a person is in need, they can say the wake word "help me." Upon detecting the wake word, the robot will activate its camera and object detection model to locate a human in the room. Once the human is centered in the frame, Eta-Bemax autonomously approaches the user. When it reaches a predefined proximity threshold, it stops and triggers all servo-controlled compartments to open.
 
 In parallel, a Flask-based web app provides manual control of the robot’s movement and compartments. It also includes:
-   • A directional control pad for movement
-   • Real-time status updates and error logs
-   • Toggle buttons to open/close compartments
+- A directional control pad for movement
+- Real-time status updates and error logs
+- Toggle buttons to open/close compartments
 
 ## 📦 Module Installation
 To run Eta-Bemax, install the following dependencies:
-pip install flask
-pip install flask-sqlalchemy
-pip install flask-login
-pip install gpiozero
-pip install pvporcupine
-pip install speechrecognition
-pip install opencv-python
-pip install adafruit-circuitpython-pca9685
+```pip install flask```<br>
+```pip install flask-sqlalchemy```<br>
+```pip install flask-login```<br>
+```pip install gpiozero```<br>
+```pip install pvporcupine```<br>
+```pip install speechrecognition```<br>
+```pip install opencv-python```<br>
+```pip install adafruit-circuitpython-pca9685```<br>
 
 ## 🔧 Guidelines
 | Language   | Tools |
