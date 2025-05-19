@@ -22,6 +22,7 @@ MOTOR_SPEED = 50  # Set motor speed (0-100%)
 # Path to the prototxt file and the caffemodel (Linux-style paths)
 prototxt = "/home/piyawan/Final_Engineering_Project/camera_recognition/MobileNetSSD_deploy.prototxt"
 caffe_model = "/home/piyawan/Final_Engineering_Project/camera_recognition/MobileNetSSD_deploy.caffemodel"
+
 # Load the model
 net = cv2.dnn.readNetFromCaffe(prototxt, caffe_model)
 
@@ -76,13 +77,14 @@ try:
                         pwm_a.ChangeDutyCycle(MOTOR_SPEED)
                         pwm_b.ChangeDutyCycle(MOTOR_SPEED)
 
-                        if center_x < width * 0.4:
+                        # Dead zone adjustment for turning
+                        if center_x < (width * 0.45):
                             print("Turning Left")
                             GPIO.output(IN1, GPIO.HIGH)
                             GPIO.output(IN2, GPIO.LOW)
                             GPIO.output(IN3, GPIO.LOW)
                             GPIO.output(IN4, GPIO.HIGH)
-                        elif center_x > width * 0.6:
+                        elif center_x > (width * 0.55):
                             print("Turning Right")
                             GPIO.output(IN1, GPIO.LOW)
                             GPIO.output(IN2, GPIO.HIGH)
