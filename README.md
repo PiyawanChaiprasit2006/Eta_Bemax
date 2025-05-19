@@ -13,9 +13,9 @@
 The goal of this project is to develop a semi-autonomous robot capable of assisting individuals in medical need, particularly those unable to move or reach supplies themselves. Eta-Bemax is designed for lab settings with flat, unobstructed flooring, where it can provide emergency aid without requiring human assistance.
 
 The robot addresses three common lab-related injuries:
-   • Burns
-   • Cuts
-   • Eye infections
+- Burns
+- Cuts
+- Eye infections
 
 Each injury type corresponds to a dedicated compartment in the robot, stocked with the appropriate medical supplies. When a person is in need, they can say the wake word "help me." Upon detecting the wake word, the robot will activate its camera and object detection model to locate a human in the room. Once the human is centered in the frame, Eta-Bemax autonomously approaches the user. When it reaches a predefined proximity threshold, it stops and triggers all servo-controlled compartments to open.
 
@@ -43,12 +43,12 @@ pip install adafruit-circuitpython-pca9685
 | HTML/CSS   |Custom templates, Figma for prototyping       |
 
 ## 🎨 Features
-   • Custom Wake-Word Activation: Trained on “help me” using PicoVoice.
-   • Voice Commands: Supports “Come here” and “Open compartments” with live speech-to-text.
-   • Visual Human Detection: Rotates until a person is in view, then approaches and stops at a set distance.
-   • Servo-Controlled Compartments: All open/close simultaneously to deliver supplies.
-   • Web Admin Interface: Manual control, error logs, and dynamic toggle between open/closed states.
-   • Automatic Timeout Logic: Stops rotation or compartment operation if no command is detected.
+- Custom Wake-Word Activation: Trained on “help me” using PicoVoice.
+- Voice Commands: Supports “Come here” and “Open compartments” with live speech-to-text.
+- Visual Human Detection: Rotates until a person is in view, then approaches and stops at a set distance.
+- Servo-Controlled Compartments: All open/close simultaneously to deliver supplies.
+- Web Admin Interface: Manual control, error logs, and dynamic toggle between open/closed states.
+- Automatic Timeout Logic: Stops rotation or compartment operation if no command is detected.
 
 ## 🐾 Usage
 1. Navigate to the project directory and run the Flask server: ```python3 app.py```
