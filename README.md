@@ -38,7 +38,7 @@ pip install adafruit-circuitpython-pca9685
 ## 🔧 Guidelines
 | Language   | Tools |
 |------------|-------|
-| Python     |[Flask](https://flask.palletsprojects.com/en/2.1.x/ ), [GPIOZero] (https://gpiozero.readthedocs.io/en/latest/), [PicoVoice] (https://picovoice.ai/platform/porcupine/), [OpenCV] (https://docs.opencv.org/4.x/d0/de3/tutorial_py_intro.html)     |
+| Python     |[Flask](https://flask.palletsprojects.com/en/2.1.x/ ), [GPIOZero](https://gpiozero.readthedocs.io/en/latest/), [PicoVoice](https://picovoice.ai/platform/porcupine/), [OpenCV](https://docs.opencv.org/4.x/d0/de3/tutorial_py_intro.html)     |
 | JavaScript |DOM manipulation, button handling       |
 | HTML/CSS   |Custom templates, Figma for prototyping       |
 
