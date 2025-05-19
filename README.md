@@ -55,6 +55,6 @@ To run Eta-Bemax, install the following dependencies:<br>
 2. Open your browser and go to http://localhost:5000
 
 ## 🌏 Authors
-Chloe Chow
-Ivy Lee
-Piyawan Chaiprasit
+Chloe Chow<br>
+Ivy Lee<br>
+Piyawan Chaiprasit<br>
