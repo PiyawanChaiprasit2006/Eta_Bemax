@@ -25,7 +25,7 @@ In parallel, a Flask-based web app provides manual control of the robot’s move
 - Toggle buttons to open/close compartments
 
 ## 📦 Module Installation
-To run Eta-Bemax, install the following dependencies:
+To run Eta-Bemax, install the following dependencies:<br>
 ```pip install flask```<br>
 ```pip install flask-sqlalchemy```<br>
 ```pip install flask-login```<br>
