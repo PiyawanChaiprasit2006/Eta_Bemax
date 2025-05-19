@@ -17,6 +17,12 @@
     <div class="data-port"></div>
   </div>
 
+  <div class="terminal">
+    <pre><code>{{ error_output|safe }}</code></pre>
+    <br>
+    <div>$ <span class="cursor"></span></div>
+  </div>    
+
   <script>
     function goToHomePage() {
       window.location.href = "/welcome";

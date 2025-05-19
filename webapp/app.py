@@ -1,7 +1,11 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect
 import motor_control
 from servo_control import open_all_servos, close_all_servos
 import atexit
+import io
+import sys
+from contextlib import redirect_stdout, redirect_stderr
+
 
 atexit.register(motor_control.cleanup)
 
@@ -21,7 +25,25 @@ def control():
 
 @app.route("/error")
 def error():
-    return render_template("error.html")
+    buffer = io.StringIO()
+    try:
+        with redirect_stdout(buffer), redirect_stderr(buffer):
+            print("$ python3 robot_controller.py")
+            print("Traceback (most recent call last):", file=sys.stderr)
+            1 / 0  # Intentional error
+    except Exception as e:
+        with redirect_stderr(buffer):
+            print(f"{type(e).__name__}: {e}")
+    
+    # Format captured output
+    raw_output = buffer.getvalue()
+    highlighted = (
+        raw_output.replace("Traceback", "<span class='error-text'>Traceback</span>")
+                  .replace("ZeroDivisionError", "<span class='error-text'>ZeroDivisionError</span>")
+                  .replace("File", "<span class='error-text'>File</span>")
+                  .replace("line", "<span class='error-text'>line</span>")
+    )
+    return render_template("error.html", error_output=highlighted)
 
 @app.route("/supplies")
 def supplies():

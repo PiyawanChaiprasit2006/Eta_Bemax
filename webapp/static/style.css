@@ -120,6 +120,7 @@ body.login {
     display: flex;
     justify-content: center;
     align-items: center;
+    border: none;
     text-decoration: none;
     transition: background-color 0.2s ease;
 }
@@ -380,41 +381,36 @@ body.login {
 }
 
 /* error page */
-.error html, body {
+/* error page - dark terminal style */
+.error html,
+.error body {
     height: 100%;
-    font-family: "Inter", Helvetica, sans-serif;
-    background-color: #ffffff;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
+    font-family: 'Courier New', Courier, monospace;
+    background-color: #1e1e1e;
+    color: #c5c8c6;
     margin: 0;
     padding: 0;
-}
-
-.error .container {
-    position: relative;
-    width: 393px;
-    height: 852px;
-    background-color: #ffffff;
-    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-y: auto;
 }
 
 .error .header-bar {
-background-color: rgba(205, 8, 8, 0.28);
-position: fixed;
-top: 0;
-left: 0;
-width: 100%;
-height: 80px;
-z-index: 2;
+    background-color: rgba(205, 8, 8, 0.28);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 80px;
+    z-index: 2;
 }
 
 .error .box {
     height: 30px;
     width: 30px;
     position: fixed;
-    top: 20px;
+    top: 15px;
     left: 20px;
     cursor: pointer;
     z-index: 3;
@@ -431,13 +427,34 @@ z-index: 2;
     align-items: center;
 }
 
-.error .circle {
-    position: absolute;
-    width: 100px;
-    height: 100px;
-    background-color: #d9d9d9;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.error .terminal {
+    margin-top: 80px;
+    white-space: pre-wrap;
+    background-color: #1e1e1e;
+    color: #c5c8c6;
+    padding: 20px;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 800px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.7);
+    word-wrap: break-word;
+    overflow-x: auto;
+}
+
+.error .error-text {
+    color: #f92672;
+}
+
+.error .cursor {
+    display: inline-block;
+    width: 10px;
+    height: 20px;
+    background: #c5c8c6;
+    animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+    50% {
+        background: transparent;
+    }
 }
