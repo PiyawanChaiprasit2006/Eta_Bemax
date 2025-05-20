@@ -5,7 +5,7 @@ import numpy as np
 from scipy.signal import resample
 import os
 
-ACCESS_KEY = "kZvkhgCgIlxxRieDyhRW+gI4G0tm7UibG6tYqnip1zpAJOIbXmASJA=="
+ACCESS_KEY = ""
 
 # Initialize Porcupine with built-in keyword "porcupine"
 porcupine = pvporcupine.create(access_key=ACCESS_KEY, keywords=["porcupine"])
