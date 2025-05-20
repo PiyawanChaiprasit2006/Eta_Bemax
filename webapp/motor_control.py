@@ -41,7 +41,7 @@ def stop_motors():
     GPIO.output(IN3, GPIO.LOW)
     GPIO.output(IN4, GPIO.LOW)
 
-def move_forward(speed=50):
+def move_forward(speed=85):
     pwmA.ChangeDutyCycle(speed)
     pwmB.ChangeDutyCycle(speed)
     GPIO.output(IN1, GPIO.HIGH)
@@ -49,7 +49,7 @@ def move_forward(speed=50):
     GPIO.output(IN3, GPIO.HIGH)
     GPIO.output(IN4, GPIO.LOW)
 
-def move_backward(speed=50):
+def move_backward(speed=85):
     pwmA.ChangeDutyCycle(speed)
     pwmB.ChangeDutyCycle(speed)
     GPIO.output(IN1, GPIO.LOW)
@@ -57,7 +57,7 @@ def move_backward(speed=50):
     GPIO.output(IN3, GPIO.LOW)
     GPIO.output(IN4, GPIO.HIGH)
 
-def turn_right(speed=50):
+def turn_right(speed=85):
     pwmA.ChangeDutyCycle(speed)
     pwmB.ChangeDutyCycle(speed)
     GPIO.output(IN1, GPIO.HIGH)
@@ -65,7 +65,7 @@ def turn_right(speed=50):
     GPIO.output(IN3, GPIO.LOW)
     GPIO.output(IN4, GPIO.HIGH)
 
-def turn_left(speed=50):
+def turn_left(speed=85):
     pwmA.ChangeDutyCycle(speed)
     pwmB.ChangeDutyCycle(speed)
     GPIO.output(IN1, GPIO.LOW)

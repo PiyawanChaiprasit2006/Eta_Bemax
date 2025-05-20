@@ -50,8 +50,6 @@ def angle_to_duty(angle):
     duty = int(pulse_us * 65535 / (1000000 / pca.frequency))
     return duty
 
-<<<<<<< HEAD
-=======
 # Function to convert angle to 16-bit duty cycle
 def angle_to_duty(angle):
     min_us = 500    # 0° = 500 microseconds
@@ -60,7 +58,6 @@ def angle_to_duty(angle):
     duty = int(pulse_us * 65535 / (1000000 / pca.frequency))
     return duty
 
->>>>>>> c7ab7cf23e45b4b9866f25997cb118d648facf3d
 # Move servos on channels 0 to 3
 for channel in range(4):
     pca.channels[channel].duty_cycle = angle_to_duty(0)  # Start at 0°
@@ -68,15 +65,14 @@ time.sleep(1)
 
 for channel in range(4):
     pca.channels[channel].duty_cycle = angle_to_duty(90)  # Move to 90°
-<<<<<<< HEAD
+
 time.sleep(10)
 
 for channel in range(4):
     pca.channels[channel].duty_cycle = angle_to_duty(0)  # Return to 0°
 
-=======
+
 time.sleep(5)
 
 for channel in range(4):
     pca.channels[channel].duty_cycle = angle_to_duty(0)  # Return to 0°
->>>>>>> c7ab7cf23e45b4b9866f25997cb118d648facf3d
