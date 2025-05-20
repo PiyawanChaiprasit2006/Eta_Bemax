@@ -31,12 +31,23 @@ def angle_to_duty(angle):
     duty = int(pulse_us * 65535 / (1000000 / pca.frequency))
     return duty
 
-def open_and_close_servos():
-    for channel in range(4):
-        pca.channels[channel].duty_cycle = angle_to_duty(90)  # Open
+
+def open_and_close_servos(channels, target_angle=90, step=5, delay=0.02):
+    for angle in range(0, target_angle + 1, step):
+        for ch in channels:
+            pca.channels[ch].duty_cycle = angle_to_duty(angle)
+        time.sleep(delay)
+    for ch in channels:
+        pca.channels[ch].duty_cycle = 0
+
     time.sleep(30)
-    for channel in range(4):
-        pca.channels[channel].duty_cycle = angle_to_duty(0)  # Close
+
+    for angle in range(90, -1, -step):
+        for ch in channels:
+            pca.channels[ch].duty_cycle = angle_to_duty(angle)
+        time.sleep(delay)
+    for ch in channels:
+        pca.channels[ch].duty_cycle = 0
 
 MOTOR_SPEED = 70
 prototxt = "/home/piyawan/Final_Engineering_Project/camera_recognition/MobileNetSSD_deploy.prototxt"
@@ -120,33 +131,24 @@ try:
                     print(f"Estimated distance: {distance:.2f} meters")
                     frame_center = width // 2
 
-                    if distance <= 2.2:
+                    if distance <= 2.5:
                         print("Reached target distance. Stopping.")
                         pwm_a.ChangeDutyCycle(0)
                         pwm_b.ChangeDutyCycle(0)
-                        open_and_close_servos()
-                        raise KeyboardInterrupt
-
-                    if center_x < frame_center - 30:
-                        print("Adjusting Right")
-                        GPIO.output(IN1, GPIO.HIGH)
+                        GPIO.output(IN1, GPIO.LOW)
                         GPIO.output(IN2, GPIO.LOW)
                         GPIO.output(IN3, GPIO.LOW)
-                        GPIO.output(IN4, GPIO.HIGH)
-                    elif center_x > frame_center + 30:
-                        print("Adjusting Left")
-                        GPIO.output(IN1, GPIO.LOW)
-                        GPIO.output(IN2, GPIO.HIGH)
-                        GPIO.output(IN3, GPIO.HIGH)
                         GPIO.output(IN4, GPIO.LOW)
-                    else:
-                        print("Centered. Moving Forward.")
-                        pwm_a.ChangeDutyCycle(MOTOR_SPEED)
-                        pwm_b.ChangeDutyCycle(MOTOR_SPEED)
-                        GPIO.output(IN1, GPIO.LOW)
-                        GPIO.output(IN2, GPIO.HIGH)
-                        GPIO.output(IN3, GPIO.LOW)
-                        GPIO.output(IN4, GPIO.HIGH)
+                        open_and_close_servos(range(4))
+                        raise KeyboardInterrupt
+
+                    # Drive forward (corrected)
+                    pwm_a.ChangeDutyCycle(MOTOR_SPEED)
+                    pwm_b.ChangeDutyCycle(MOTOR_SPEED)
+                    GPIO.output(IN1, GPIO.HIGH)
+                    GPIO.output(IN2, GPIO.LOW)
+                    GPIO.output(IN3, GPIO.HIGH)
+                    GPIO.output(IN4, GPIO.LOW)
 
 finally:
     print("Cleaning up...")
