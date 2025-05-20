@@ -1,13 +1,60 @@
-# TT_Engineering_Project
-Engineering Project
-The purpose of this project is to code a robot to move towards a person in need of medical supplies that is unable to get to it themselves, assuming there is no one else in the room to help. This robot is most appropriately used in a lab setting with flat flooring. 
+# Eta-Bemax (Engineering Project) – Medical Assistance Robot
 
-The robot will tend to three main common lab injuriesL: burns, cuts, and eye contaminations. There will be separate compartments in the robot to house medical supplies appropriate for each injury. When in need of the robot's help, a user will use the wake word "help me", which the robot will detect with four microphones. Upon hearing the wake word, the robot will use its camera to identify a human in the room and move towards the user. When the robot is close enough to the user, it will stop and a light will turn on to indicate to the user that the robot is now listening for another audio cue: the type of injury. If the user specifies burns, the burn compartment will open with the appropriate medical supplies.
+## 🚩 Table of Contents
 
-Additionally, a web app will be used for the user to manually move the robot with a control pad, open and close compartents, and view error messages.
+- [Introduction](#-introduction)
+- [Module Installation](#-module-installation)
+- [Guidelines](#-guidelines)
+- [Features](#-features)
+- [Usage](#-usage)
+- [Authors](#-authors)
 
-For audio recognition, we will be importing the following: pvporcupine, pyaudio, struct, and os
+## 🤖 Introduction
+The goal of this project is to develop a semi-autonomous robot capable of assisting individuals in medical need, particularly those unable to move or reach supplies themselves. Eta-Bemax is designed for lab settings with flat, unobstructed flooring, where it can provide emergency aid without requiring human assistance.
 
-For camera human detectoin, we will be importing the following: numpy, cv2, and MobileNetSSD
+The robot addresses three common lab-related injuries:
+- Burns
+- Cuts
+- Eye infections
 
-We will be using Python, Raspberry Pi 4, and other necessary compatible parts.
+Each injury type corresponds to a dedicated compartment in the robot, stocked with the appropriate medical supplies. When a person is in need, they can say the wake word "help me." Upon detecting the wake word, the robot will activate its camera and object detection model to locate a human in the room. Once the human is centered in the frame, Eta-Bemax autonomously approaches the user. When it reaches a predefined proximity threshold, it stops and triggers all servo-controlled compartments to open.
+
+In parallel, a Flask-based web app provides manual control of the robot’s movement and compartments. It also includes:
+- A directional control pad for movement
+- Real-time status updates and error logs
+- Toggle buttons to open/close compartments
+
+## 📦 Module Installation
+To run Eta-Bemax, install the following dependencies:<br>
+```pip install flask```<br>
+```pip install flask-sqlalchemy```<br>
+```pip install flask-login```<br>
+```pip install gpiozero```<br>
+```pip install pvporcupine```<br>
+```pip install speechrecognition```<br>
+```pip install opencv-python```<br>
+```pip install adafruit-circuitpython-pca9685```<br>
+
+## 🔧 Guidelines
+| Language   | Tools |
+|------------|-------|
+| Python     |[Flask](https://flask.palletsprojects.com/en/2.1.x/ ), [GPIOZero](https://gpiozero.readthedocs.io/en/latest/), [PicoVoice](https://picovoice.ai/platform/porcupine/), [OpenCV](https://docs.opencv.org/4.x/d0/de3/tutorial_py_intro.html)     |
+| JavaScript |DOM manipulation, button handling       |
+| HTML/CSS   |Custom templates, Figma for prototyping       |
+
+## 🎨 Features
+- Custom Wake-Word Activation: Trained on “help me” using PicoVoice.
+- Voice Commands: Supports “Come here” and “Open compartments” with live speech-to-text.
+- Visual Human Detection: Rotates until a person is in view, then approaches and stops at a set distance.
+- Servo-Controlled Compartments: All open/close simultaneously to deliver supplies.
+- Web Admin Interface: Manual control, error logs, and dynamic toggle between open/closed states.
+- Automatic Timeout Logic: Stops rotation or compartment operation if no command is detected.
+
+## 🐾 Usage
+1. Navigate to the project directory and run the Flask server: ```python3 app.py```
+2. Open your browser and go to http://localhost:5000
+
+## 🌏 Authors
+Chloe Chow<br>
+Ivy Lee<br>
+Piyawan Chaiprasit<br>
